@@ -89,6 +89,9 @@
             border-radius: 6px;
             background-color: aliceblue;
             box-shadow: 0 0 10px 2px #ff00ea;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             /* cursor: pointer; */
         }
 
@@ -128,8 +131,20 @@
 
         row.addEventListener("click", function(e){
             e.preventDefault();
-            alert("hell");
-            // console.log("hell");
+            // alert("hell");
+            var id_cliked = this.id;
+            var item = document.getElementById(id_cliked);
+            
+            if (turn === "X" && item.innerHTML === "") {
+                item.innerHTML = turn;
+                turn = "O";
+            }else if (turn === "O" && item.innerHTML === "") {
+                item.innerHTML = turn;
+                turn = "X";
+            }
+
+            // row.innerHTML
+            console.log(item);
             
         })
         // console.log(row);    
