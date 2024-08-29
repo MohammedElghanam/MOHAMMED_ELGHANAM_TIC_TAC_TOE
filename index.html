@@ -12,151 +12,90 @@
         }
 
         body{
+            /* background-color: blue; */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .title h1{
+            /* background-color: blueviolet; */
+            width: screen;
+            color: rgb(255, 0, 251);
+            font-size: 35px;
+            height: 80px;
             display: flex;
             justify-content: center;
             align-items: center;
-            /* background-color: blue; */
+            gap: 10px;
+        }
+
+        .title .bar{
+            height: 50px;
+            width: 1000px;
+            /* background-color: red; */
+            margin: 0px 150px ;
+            padding: 10px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .bar .option{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .bar a{
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: 800;
+            color: #6b6b6b;
+        }
+
+        .option p{
+            font-size: 20px;
+        }
+
+        .option div{
+            width: 25px;
+            height: 25px;
+            border-radius: 4px;
+            background-color: aqua;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .container{
-            padding: 10px;
-            margin-top: 150px;
-            background-color: rgb(204, 0, 255);
-            display: grid;
-            justify-content: center;
-            align-items: center;
-            grid-template-columns: repeat(5, 50px);
-            grid-template-rows: repeat(5, 50px);
-            gap: 10px;
-            box-shadow: 0 0 20px 20px rgb(231, 231, 231);
-            border-radius: 20px;
-        }
-
-        .rect{
-            grid-column: span 1;
-            height: 50px;
-            background-color: #f4f4f4;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .rect:hover{
-            background-color: rgb(232, 232, 232);
-        }
-
-        #item{
-            grid-column: span 5;
-            height: 50px;
-            background-color: #f4f4f4;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 15px;
-            border-radius: 20px;
-        }
-
-        #item span{
-            color: rgb(255, 0, 0);
-            font-size: 30px;
-            font-weight: bold;
+            background-color: blue;
+            /* width: 1000px;
+            height: 100px; */
         }
 
     </style>
+
 </head>
 <body>
-    
-    <div class="container">
-
-        <div class="" id="item">
-            <span> X - O</span>
-            <h1>GAME</h1>
+    <div class="title">
+        <h1>TEC TAC TOE</h1>
+        <div class="bar">
+            <div class="option">
+                <p>select option: </p>
+                <div class="">X</div>
+                <div class="">O</div>
+            </div>
+            <a href="">View Scors</a>
         </div>
-
-        <div class="rect" id="item1" onclick="rungame(this.id)"></div>
-        <div class="rect" id="item2" onclick="rungame(this.id)"></div>
-        <div class="rect" id="item3" onclick="rungame(this.id)"></div>
-        <div class="rect" id="item4" onclick="rungame(this.id)"></div>
-        <div class="rect" id="item5" onclick="rungame(this.id)"></div>
-
-        <div class="rect" id="item6"  onclick="rungame(this.id)"></div>
-        <div class="rect" id="item7"  onclick="rungame(this.id)"></div>
-        <div class="rect" id="item8"  onclick="rungame(this.id)"></div>
-        <div class="rect" id="item9"  onclick="rungame(this.id)"></div>
-        <div class="rect" id="item10" onclick="rungame(this.id)"></div>
-        
-        <div class="rect" id="item11" onclick="rungame(this.id)"></div>
-        <div class="rect" id="item12" onclick="rungame(this.id)"></div>
-        <div class="rect" id="item13" onclick="rungame(this.id)"></div>
-        <div class="rect" id="item14" onclick="rungame(this.id)"></div>
-        <div class="rect" id="item15" onclick="rungame(this.id)"></div>
-
-        <div class="rect" id="item16" onclick="rungame(this.id)"></div>
-        <div class="rect" id="item17" onclick="rungame(this.id)"></div>
-        <div class="rect" id="item18" onclick="rungame(this.id)"></div>
-        <div class="rect" id="item19" onclick="rungame(this.id)"></div>
-        <div class="rect" id="item20" onclick="rungame(this.id)"></div>
-
-        <div class="rect" id="item21" onclick="rungame(this.id)"></div>
-        <div class="rect" id="item22" onclick="rungame(this.id)"></div>
-        <div class="rect" id="item23" onclick="rungame(this.id)"></div>
-        <div class="rect" id="item24" onclick="rungame(this.id)"></div>
-        <div class="rect" id="item25" onclick="rungame(this.id)"></div>
-
     </div>
+
+    <div class="container"></div>
 </body>
 </html>
 
 <script>
-
-    var VAL = "X";
-    function rungame(id){
-        // alert(id);
-
-        
-        let item = document.getElementById(id);
-
-        if (VAL == "X" && item.innerHTML === "") {
-            item.innerHTML = VAL;
-            VAL = "O";
-            // alert(item.innerHTML);
-        }else if (VAL == "O" && item.innerHTML === ""){
-            item.innerHTML = VAL;
-            VAL = "X";
-            // alert(item.innerHTML);
-        }
-
-        differnce();
-        
-    }
-
-    var differnce = function (){
-        var array = [];
-        for (let i = 1; i < 26 ; i++) {
-            var item = document.getElementById("item" + i).innerHTML;
-            array.push(item);
-            console.log(array[i]);                        
-        }
-
-        // console.log(array[4]);
-
-        // if (array[0] === array[1] && array[1] === array[2] && array[2] === array[3] && array[3] === array[4]) {
-        //     // alert("win");
-        //     console.log("win h'ori");
-            
-        // }
-
-        // if (array[0] === array[5] && array[5] === array[10] && array[10] === array[15] && array[15] === array[20]) {
-        //     console.log("win ve");
-        // }
-    }
-
-
     
-    // function ip_address(wan){
-    //     function switch(man){}
-    // }
-
-    // ip_address(wan, man)
 </script>
