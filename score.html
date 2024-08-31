@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+        *{
+            padding: 0px;
+            margin: 0px;
+        }
+
+        body{
+            /* background-color: blue; */
+        }
+
+        .bar{
+            width: 100%;
+            height: 10vh;
+            /* background-color: aqua; */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .bar h1{
+            font-size: 40px;
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: 600;
+            color: rgb(255, 0, 208);
+        }
+
+        .container{
+            /* background-color: aliceblue; */
+            padding-top: 100px;
+            width: 100%;
+            height: 90vh;
+            display: flex;
+            justify-content: center;
+            align-items: start;
+        }
+
+        .table{
+            padding: 4px;
+            width: 80%;
+            border-radius: 10px;
+            box-shadow: 0 0 100px 10px rgb(220, 220, 220);
+        }
+
+        .table thead tr td{
+            background-color: rgb(227, 224, 224);
+            border-radius: 10px;
+            padding: 10px;
+        }
+
+        .table tbody tr td{
+            border-bottom: 1px solid rgb(121, 121, 121); /* إضافة خط أسفل كل صف */
+        }
+
+    </style>
+</head>
+<body>
+    
+    <div class="bar">
+        <h1>Statique of Players</h1>
+    </div>
+
+    <div class="container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <td>UserName</td>
+                    <td>Win</td>
+                    <td>Loss</td>
+                    <td>Draw</td>
+                    <td>Score</td>
+                </tr>
+            </thead>
+            <tbody id="content">
+
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
+
+<script>
+    
+    const content = document.getElementById('content');
+
+    var users = JSON.parse(localStorage.getItem('Users'));
+    // console.log(users);
+    
+    users.forEach(item => {
+        var tr = document.createElement('tr');
+        // tr.style.textDecorationLine = 'underline';
+
+        var tdUserName = document.createElement('td');
+        tdUserName.style.padding = '18px 10px';
+        // tdUserName.style.textDecorationLine = 'underline';
+        tdUserName.innerHTML = item.UserName;
+        tr.appendChild(tdUserName);
+        
+        var tdWin = document.createElement('td');
+        tdWin.style.padding = '18px 10px';
+        tdWin.innerHTML = item.Win;
+        tr.appendChild(tdWin);
+        
+        var tdLoss = document.createElement('td');
+        tdLoss.style.padding = '18px 10px';
+        tdLoss.innerHTML = item.Loss;
+        tr.appendChild(tdLoss);
+        
+        var tdDraw = document.createElement('td');
+        tdDraw.style.padding = '18px 10px';
+        tdDraw.innerHTML = item.Draw;
+        tr.appendChild(tdDraw);
+        
+        var tdScore = document.createElement('td');
+        tdScore.style.padding = '18px 10px';
+        tdScore.innerHTML = item.Score;
+        tr.appendChild(tdScore);
+
+        content.appendChild(tr);
+    });
+    
+
+</script>
