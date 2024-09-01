@@ -42,11 +42,23 @@
             align-items: center;
         }
 
+        /* .bar{
+            background-color: #002fff;
+        } */
+
         .bar .option{
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 10px;
+        }
+
+
+        .bar .view_players{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 50px;
         }
 
         .bar a{
@@ -68,6 +80,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            cursor: pointer;
         }
 
         .container{
@@ -100,157 +113,74 @@
             border: 1px solid #002fff;
         }
 
-        .pop_up{
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 200vh;
-            background-color: rgb(107, 107, 107, 0.25);
-            top: 0px;
-            left: 0px;
-            display: flex;
-            justify-content: center;
-            align-items: start;
-        }
-
-        .form{
-            margin-top: 200px;
-            background-color: white;
-            border-radius: 10px;
-            padding: 60px 30px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .form h1{
-            text-align: center;
-            font-size: 30px;
-            font-weight: 500;
-            font-family: Arial, Helvetica, sans-serif;
-            padding-bottom: 20px;
-
-        }
-
-        .form button{
-            width: 100%;
-            height: 35px;
-            border-radius: 5px;
-            border: none;
-            font-size: 16px;
-            background-color: #ff00ea;
-            color: white;
-        }
-
-        .form button:hover{
-            background-color: #ff2bed;
-        }
-
-        .username{
-            position: relative;
-        }
-
-        .username input{
-            width: 300px;
-            height: 30px;
-            padding: 4px;
-            border-radius: 4px;
-            /* outline: none; */
-            border: 1px solid rgb(255, 0, 230);
-
-        }
-
-        .username input:focus{
-            border: 1px solid rgb(255, 0, 230);
-
-            
-        }
-
-        .username input::placeholder{
-            color: #ff00ea;
-        }
-
-        .username h2{
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background-color: white;
-            padding: 0 8px;
-            font-weight: 300;
-            font-family: Arial, Helvetica, sans-serif;
-            color: #ff00ea;
-            font-size: 16px;
-
-            
-        }
-
-        .error_msg{            
-            padding: 5px;
-            color: red;
-            font-weight: 200;
-            font-family: Arial, Helvetica, sans-serif;
-            font-size: 16px;
-        }
-
-        @keyframes moveing {
-            0%{
-                top: 10px;
-                left: 10px;
-            }
-
-            100%{
-                top: -10px;
-                left: 8px;
-                color: #2a2a2b ;
-            }
-        }
-
-
-        .animate {
-            animation-name: moveing;
-            animation-duration: 0.5s;
-            animation-fill-mode: forwards;
-        }
-
-
     </style>
 
 </head>
 <body>
     <div class="title">
-        <h1>TEC TAC TOE</h1>
+        <h1 id="title">TEC TAC TOE</h1>
         <div class="bar">
             <div class="option">
                 <p>select option: </p>
-                <div class="">X</div>
-                <div class="">O</div>
+                <div class="" id="X">X</div>
+                <div class="" id="O">O</div>
             </div>
-            <a href="">View Scors</a>
+            <div class="view_players">
+                <p id="player1">PLAYERS1 : mohammed</p>
+                <p id="player2">PLAYERS2 : anas</p>
+            </div>
+            <a href="score.html">View Scors</a>
         </div>
     </div>
 
     <div class="container" id="container"></div>
 
 
-    <div class="pop_up" id="pop_up">
-        <form class="form">
-            <h1>WELCOM TO GAME</h1>
-            <div class="username">
-                <h2 id="subtitle">UserName</h2>
-                <input type="text" name="" id="input_user">
-                <p class="error_msg"></p>
-            </div>
-            <button type="submit">Save</button>
-        </form>
     </div>
 </body>
 </html>
 
 <script>
-    var turn = "X";
+
+    // var arrow = [];
+    // if (arrow == null) {
+    //     console.log('ok');
+        
+    // }else{
+    //     console.log("error");
+        
+    // }
+
+    const title = document.getElementById('title');
+    const X = document.getElementById('X');
+    const O = document.getElementById('O');
+
+    const player1 = document.getElementById('player1');
+    const player2 = document.getElementById('player2');
+
     var container = document.getElementById("container");
+    var turn;
+
+    const turns = JSON.parse(localStorage.getItem('turns'));
+    // console.log(turns);
+    
+    turns.forEach(item => {
+        player1.innerHTML = "PLAYERS 1: " +  item.players1;
+        player2.innerHTML = "PLAYERS 2: " +  item.players2;
+    });
+
+    X.addEventListener('click', function(e){
+        e.preventDefault();
+        turn = "X";
+    })
+
+    O.addEventListener('click', function(e){
+        e.preventDefault();
+        turn = "O";
+    })
+
+    
+    
     for (let i = 1; i <= 400 ; i++) {
         var row = document.createElement("div");
         row.className = "rect";
@@ -262,14 +192,25 @@
             // alert("hell");
             var id_cliked = this.id;
             var item = document.getElementById(id_cliked);
+
+            
             
             if (turn === "X" && item.innerHTML === "") {
                 item.innerHTML = turn;
                 turn = "O";
+                turns.forEach(item => {
+                    title.innerHTML = "Turn : " +  item.players2 + "  Symbol : " +  turn;
+                });
             }else if (turn === "O" && item.innerHTML === "") {
                 item.innerHTML = turn;
                 turn = "X";
+                turns.forEach(item => {
+                    title.innerHTML = "Turn : " +  item.players1 + "  Symbol : " +  turn;
+                });
+                
             }
+
+            checking();
 
             // row.innerHTML
             // console.log(item);
@@ -278,71 +219,54 @@
         // console.log(row);    
     }
 
-    
-    
+    function checking(){
+        const array = [];
+        for (let i = 1; i <= 400 ; i++) {
+           var item = document.getElementById("item" + i).innerHTML;
+           array.push(item) 
 
-</script>
+        }
+        // console.log(array);
 
-
-<script>
-
-    const pop_up = document.getElementById('pop_up');
-    const username_input = document.querySelector('.username input');
-    const H2 = document.querySelector('.username h2');
-    const form = document.querySelector('.form');
-    const input = document .getElementById('input_user');
-    const error_msg = document.querySelector('.error_msg');
-
-
-    username_input.addEventListener('focus', () => {
-        H2.classList.add('animate');
-    });
-
-    // username_input.addEventListener('focusout', () => {
-    //     H2.classList.remove('animate');
-    // });
-
-    form.addEventListener('submit', function(e){
-        e.preventDefault();
-
-        const usernamePattern = /^[a-zA-Z0-9_]{4,12}$/;
-
-        if (input.value === '') {
-
-            error_msg.innerHTML = 'The input is field';
-
-        }else if (!usernamePattern.test(input.value)) {
-            input.style.border = "1px solid red";
-            error_msg.innerHTML = 'The username is incorrect. <br> [ a-zA-Z0-9_ ] between{4,12}';
-        
-        } else if (usernamePattern.test(input.value)) {
-        
-            error_msg.innerHTML = '';
-            pop_up.style.display = 'none';
-
-
-            const User = {
-                UserName : input.value,
-                Win : 0,
-                Loss : 0,
-                Draw : 0,
-                Score : 0
+        // if (array.innerHTML == null) {
+            // alert('good');
+            if (array[0] == array[1] && array[1] == array[2] && array[2] == array[3] && array[3] == array[4]) {
+                // alert("success");
+                for (let i = 1; i < 6; i++) {
+                    var element = document.getElementById("item" + i).style.backgroundColor = 'red';
+                    // console.log(element);
+                    
+                }
             }
 
-            var Users = JSON.parse(localStorage.getItem('Users')) || [];
-            Users.push(User);
-            localStorage.setItem("Users", JSON.stringify(Users));
+            if (array[0] == array[20] && array[20] == array[40] && array[40] == array[60] && array[60] == array[80]) {
+                // alert("success");
+                var arr = [1, 21, 41, 61, 81];
+                for (let i = 0; i <= arr.length; i++) {
+                    document.getElementById("item"  + arr[i]).style.backgroundColor = 'red';
+                    document.getElementById("item" + arr[i]).style.backgroundColor = 'red';
+                    document.getElementById("item" + arr[i]).style.backgroundColor = 'red';
+                    document.getElementById("item" + arr[i]).style.backgroundColor = 'red';
+                    document.getElementById("item" + arr[i]).style.backgroundColor = 'red';
+                }
+                
+            }
 
-
-            // alert(input.value);
+            if (array[0] == array[20] && array[20] == array[40] && array[40] == array[60] && array[60] == array[80]) {
+                // alert("success");
+                var arr = [1, 21, 41, 61, 81];
+                for (let i = 0; i <= arr.length; i++) {
+                    document.getElementById("item"  + arr[i]).style.backgroundColor = 'red';
+                    document.getElementById("item" + arr[i]).style.backgroundColor = 'red';
+                    document.getElementById("item" + arr[i]).style.backgroundColor = 'red';
+                    document.getElementById("item" + arr[i]).style.backgroundColor = 'red';
+                    document.getElementById("item" + arr[i]).style.backgroundColor = 'red';
+                }
+                
+            }
+        // }
         
-        }
-
-        
-        
-
-        
-    })
-
+    }
+    
 
 </script>
