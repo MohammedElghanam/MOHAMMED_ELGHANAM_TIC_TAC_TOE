@@ -304,25 +304,128 @@
 
         if ( array[0] != '' && array[20] != '' && array[40] != '' && array[60] != '' && array[80] != '' && array[0] == array[20] && array[20] == array[40] && array[40] == array[60] && array[60] == array[80]) {
             var arr = [1, 21, 41, 61, 81];
-            for (let i = 1; i <= arr.length; i++) {
+            for (let i = 0; i <= arr.length - 1; i++) {
+                console.log(arr[i]);
+                
                 document.getElementById("item"  + arr[i]).style.backgroundColor = 'red';
                 document.getElementById("item" + arr[i]).style.backgroundColor = 'red';
                 document.getElementById("item" + arr[i]).style.backgroundColor = 'red';
                 document.getElementById("item" + arr[i]).style.backgroundColor = 'red';
                 document.getElementById("item" + arr[i]).style.backgroundColor = 'red';
             }
+
+
+            if (array[0] == pointer[1]) {
+                var winerrplayer = pointer[0];
+                var Lossplayer = pointer[2];
+                // console.log("player 1 win : " + winerrplayer);
+
+                const Users = JSON.parse(localStorage.getItem("Users"));
+                var res_win = Users.find(user => user.UserName == winerrplayer);
+                var res_loss = Users.find(user => user.UserName == Lossplayer);
+                
+                if (res_win && res_loss) {
+                    // console.log(winerrplayer);
+                    // console.log(Lossplayer);
+                    
+                    res_win.Win += 1;
+                    res_win.Score += 10;
+
+                    res_loss.Loss += 1;
+                    
+                    localStorage.setItem("Users", JSON.stringify(Users));
+                    console.log(res_win);
+                    console.log(res_loss);
+
+                }
+
+            }else if (array[0] !== pointer[1]) {
+                var winerrplayer = pointer[0];
+                var Lossplayer = pointer[2];
+                // console.log("player 2 win : " + Lossplayer);
+                
+                const Users = JSON.parse(localStorage.getItem("Users"));
+                var res_win = Users.find(user => user.UserName == winerrplayer);
+                var res_loss = Users.find(user => user.UserName == Lossplayer);
+                
+                if (res_win && res_loss) {
+                    // console.log(winerrplayer);
+                    // console.log(Lossplayer);
+                    
+                    res_loss.Win += 1;
+                    res_loss.Score += 10;
+
+                    res_win.Loss += 1;
+                    
+                    localStorage.setItem("Users", JSON.stringify(Users));
+                    console.log(res_win);
+                    console.log(res_loss);
+
+                }
+            }
+
+
             
             
         }
 
         if ( array[0] != '' && array[21] != '' && array[42] != '' && array[63] != '' && array[84] != '' && array[0] == array[21] && array[21] == array[42] && array[42] == array[63] && array[63] == array[84]) {
             var arr = [1, 22, 43, 64, 85];
-            for (let i = 1; i <= arr.length; i++) {
+            for (let i = 0; i <= arr.length -1; i++) {
                 document.getElementById("item"  + arr[i]).style.backgroundColor = 'red';
                 document.getElementById("item" + arr[i]).style.backgroundColor = 'red';
                 document.getElementById("item" + arr[i]).style.backgroundColor = 'red';
                 document.getElementById("item" + arr[i]).style.backgroundColor = 'red';
                 document.getElementById("item" + arr[i]).style.backgroundColor = 'red';
+            }
+
+            if (array[0] == pointer[1]) {
+                var winerrplayer = pointer[0];
+                var Lossplayer = pointer[2];
+                // console.log("player 1 win : " + winerrplayer);
+
+                const Users = JSON.parse(localStorage.getItem("Users"));
+                var res_win = Users.find(user => user.UserName == winerrplayer);
+                var res_loss = Users.find(user => user.UserName == Lossplayer);
+                
+                if (res_win && res_loss) {
+                    // console.log(winerrplayer);
+                    // console.log(Lossplayer);
+                    
+                    res_win.Win += 1;
+                    res_win.Score += 10;
+
+                    res_loss.Loss += 1;
+                    
+                    localStorage.setItem("Users", JSON.stringify(Users));
+                    console.log(res_win);
+                    console.log(res_loss);
+
+                }
+
+            }else if (array[0] !== pointer[1]) {
+                var winerrplayer = pointer[0];
+                var Lossplayer = pointer[2];
+                // console.log("player 2 win : " + Lossplayer);
+                
+                const Users = JSON.parse(localStorage.getItem("Users"));
+                var res_win = Users.find(user => user.UserName == winerrplayer);
+                var res_loss = Users.find(user => user.UserName == Lossplayer);
+                
+                if (res_win && res_loss) {
+                    // console.log(winerrplayer);
+                    // console.log(Lossplayer);
+                    
+                    res_loss.Win += 1;
+                    res_loss.Score += 10;
+
+                    res_win.Loss += 1;
+                    
+                    localStorage.setItem("Users", JSON.stringify(Users));
+                    console.log(res_win);
+                    console.log(res_loss);
+
+                }
             }
             
         }
