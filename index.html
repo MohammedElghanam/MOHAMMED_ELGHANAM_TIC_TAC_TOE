@@ -142,14 +142,7 @@
 
 <script>
 
-    // var arrow = [];
-    // if (arrow == null) {
-    //     console.log('ok');
-        
-    // }else{
-    //     console.log("error");
-        
-    // }
+
 
     const title = document.getElementById('title');
     const X = document.getElementById('X');
@@ -160,9 +153,9 @@
 
     var container = document.getElementById("container");
     var turn;
+    var pointer = [];
 
     const turns = JSON.parse(localStorage.getItem('turns'));
-    // console.log(turns);
     
     turns.forEach(item => {
         player1.innerHTML = "PLAYERS 1: " +  item.players1;
@@ -172,13 +165,35 @@
     X.addEventListener('click', function(e){
         e.preventDefault();
         turn = "X";
+
+        turns.forEach(item => {
+            pointer.length = 0;
+            pointer.push(item.players1);
+            pointer.push(turn);
+            pointer.push(item.players2);
+
+            // console.log(pointer[1]);
+        
+        });
+
     })
 
     O.addEventListener('click', function(e){
         e.preventDefault();
         turn = "O";
+
+        turns.forEach(item => {
+            pointer.length = 0;
+            pointer.push(item.players1);
+            pointer.push(turn);
+            pointer.push(item.players2);
+            // console.log(pointer[1]);
+        
+        });
     })
 
+    
+    
     
     
     for (let i = 1; i <= 400 ; i++) {
@@ -189,10 +204,9 @@
 
         row.addEventListener("click", function(e){
             e.preventDefault();
-            // alert("hell");
+
             var id_cliked = this.id;
             var item = document.getElementById(id_cliked);
-
             
             
             if (turn === "X" && item.innerHTML === "") {
@@ -210,13 +224,11 @@
                 
             }
 
-            checking();
-
-            // row.innerHTML
-            // console.log(item);
+            if (turn == "X" || turn == "O") {
+                checking();
+            }
             
-        })
-        // console.log(row);    
+        })   
     }
 
     function checking(){
@@ -226,47 +238,93 @@
            array.push(item) 
 
         }
-        // console.log(array);
-
-        // if (array.innerHTML == null) {
-            // alert('good');
-            if (array[0] == array[1] && array[1] == array[2] && array[2] == array[3] && array[3] == array[4]) {
-                // alert("success");
-                for (let i = 1; i < 6; i++) {
-                    var element = document.getElementById("item" + i).style.backgroundColor = 'red';
-                    // console.log(element);
-                    
-                }
-            }
-
-            if (array[0] == array[20] && array[20] == array[40] && array[40] == array[60] && array[60] == array[80]) {
-                // alert("success");
-                var arr = [1, 21, 41, 61, 81];
-                for (let i = 0; i <= arr.length; i++) {
-                    document.getElementById("item"  + arr[i]).style.backgroundColor = 'red';
-                    document.getElementById("item" + arr[i]).style.backgroundColor = 'red';
-                    document.getElementById("item" + arr[i]).style.backgroundColor = 'red';
-                    document.getElementById("item" + arr[i]).style.backgroundColor = 'red';
-                    document.getElementById("item" + arr[i]).style.backgroundColor = 'red';
-                }
-                
-            }
-
-            if (array[0] == array[20] && array[20] == array[40] && array[40] == array[60] && array[60] == array[80]) {
-                // alert("success");
-                var arr = [1, 21, 41, 61, 81];
-                for (let i = 0; i <= arr.length; i++) {
-                    document.getElementById("item"  + arr[i]).style.backgroundColor = 'red';
-                    document.getElementById("item" + arr[i]).style.backgroundColor = 'red';
-                    document.getElementById("item" + arr[i]).style.backgroundColor = 'red';
-                    document.getElementById("item" + arr[i]).style.backgroundColor = 'red';
-                    document.getElementById("item" + arr[i]).style.backgroundColor = 'red';
-                }
-                
-            }
-        // }
         
-    }
-    
+        if ( array[0] != '' && array[1] != '' && array[2] != '' && array[3] != '' && array[4] != '' && array[0] == array[1] && array[1] == array[2] && array[2] == array[3] && array[3] == array[4] ) {
+            for (let i = 1; i < 6; i++) {
+                var element = document.getElementById("item" + i).style.backgroundColor = 'red';
+            }
+            // console.log(array[0]); 
 
+            if (array[0] == pointer[1]) {
+                var winerrplayer = pointer[0];
+                var Lossplayer = pointer[2];
+                // console.log("player 1 win : " + winerrplayer);
+
+                const Users = JSON.parse(localStorage.getItem("Users"));
+                var res_win = Users.find(user => user.UserName == winerrplayer);
+                var res_loss = Users.find(user => user.UserName == Lossplayer);
+                
+                if (res_win && res_loss) {
+                    // console.log(winerrplayer);
+                    // console.log(Lossplayer);
+                    
+                    res_win.Win += 1;
+                    res_win.Score += 10;
+
+                    res_loss.Loss += 1;
+                    
+                    localStorage.setItem("Users", JSON.stringify(Users));
+                    // console.log(res_win);
+                    // console.log(res_loss);
+
+                }
+
+            }else if (array[0] !== pointer[1]) {
+                var winerrplayer = pointer[0];
+                var Lossplayer = pointer[2];
+                // console.log("player 2 win : " + Lossplayer);
+                
+                const Users = JSON.parse(localStorage.getItem("Users"));
+                var res_win = Users.find(user => user.UserName == winerrplayer);
+                var res_loss = Users.find(user => user.UserName == Lossplayer);
+                
+                if (res_win && res_loss) {
+                    // console.log(winerrplayer);
+                    // console.log(Lossplayer);
+                    
+                    res_loss.Win += 1;
+                    res_loss.Score += 10;
+
+                    res_win.Loss += 1;
+                    
+                    localStorage.setItem("Users", JSON.stringify(Users));
+                    // console.log(res_win);
+                    // console.log(res_loss);
+
+                }
+            }
+            
+
+
+
+            
+            
+            
+        }
+
+        if ( array[0] != '' && array[20] != '' && array[40] != '' && array[60] != '' && array[80] != '' && array[0] == array[20] && array[20] == array[40] && array[40] == array[60] && array[60] == array[80]) {
+            var arr = [1, 21, 41, 61, 81];
+            for (let i = 1; i <= arr.length; i++) {
+                document.getElementById("item"  + arr[i]).style.backgroundColor = 'red';
+                document.getElementById("item" + arr[i]).style.backgroundColor = 'red';
+                document.getElementById("item" + arr[i]).style.backgroundColor = 'red';
+                document.getElementById("item" + arr[i]).style.backgroundColor = 'red';
+                document.getElementById("item" + arr[i]).style.backgroundColor = 'red';
+            }
+            
+            
+        }
+
+        if ( array[0] != '' && array[21] != '' && array[42] != '' && array[63] != '' && array[84] != '' && array[0] == array[21] && array[21] == array[42] && array[42] == array[63] && array[63] == array[84]) {
+            var arr = [1, 22, 43, 64, 85];
+            for (let i = 1; i <= arr.length; i++) {
+                document.getElementById("item"  + arr[i]).style.backgroundColor = 'red';
+                document.getElementById("item" + arr[i]).style.backgroundColor = 'red';
+                document.getElementById("item" + arr[i]).style.backgroundColor = 'red';
+                document.getElementById("item" + arr[i]).style.backgroundColor = 'red';
+                document.getElementById("item" + arr[i]).style.backgroundColor = 'red';
+            }
+            
+        }
+    }
 </script>
